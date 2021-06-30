@@ -65,25 +65,6 @@ a:hover {
     color: rgb(0, 40, 173);
 }
 
-.product {
-           margin: 5px;
-            padding: 5px;
-            display: inline-block;
-
-}
-
-.product img {
-          float: left;
-          padding: 20px;
-}
-
-.product a:hover {
-    color: rgb(0, 40, 173);
-}
-
-button {
-   background-color: goldenrod;
-}
 
 footer li {
     background-color: #000000;
