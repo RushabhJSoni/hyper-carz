@@ -1,6 +1,6 @@
 let muchCash = prompt('Do you have a million $');
 if(muchCash == 'yes') {
-       document.write('Good to see you again! ' + userName);
+       document.write('Good to see you again ' + userName + '!');
 }
 else {
     
