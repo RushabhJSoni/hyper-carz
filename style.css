@@ -1,0 +1,99 @@
+html {
+    background-color: #f7f7f7;
+}
+
+
+header {
+    background-color:  #000000;
+    color: rgba(208, 212, 223, 0.877);
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
+header li {
+            display: inline-block;
+}
+
+body {
+    width: 1000px;
+    font-family: 'Barlow', sans-serif;
+    background-color: white;
+    color: rgb(49, 49, 49);
+    padding: 10px;
+    width: 100%;
+    /* text-align: center; */
+    
+}
+
+.sec {
+    display: inline-block;
+    
+}
+
+#img1 { 
+        float: left;
+        
+}
+
+#img2 { 
+    float: right;
+}
+
+#img3 { 
+    float: left;
+}
+
+ul {
+     margin: 0%;
+     padding: 0%;
+}
+
+li {
+            list-style-type: none;
+            line-height: 20px;
+            padding: 10px;
+}
+
+a {
+
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: rgb(0, 40, 173);
+}
+
+.product {
+           margin: 5px;
+            padding: 5px;
+            display: inline-block;
+
+}
+
+.product img {
+          float: left;
+          padding: 20px;
+}
+
+.product a:hover {
+    color: rgb(0, 40, 173);
+}
+
+button {
+   background-color: goldenrod;
+}
+
+footer li {
+    background-color: #000000;
+    padding: 0px 20px;
+    display: inline;
+    text-align: center;
+    color: rgba(208, 212, 223, 0.877);
+    
+}
+
+footer nav, p {
+    text-align: center;
+}
