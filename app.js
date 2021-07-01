@@ -8,7 +8,7 @@ return userName;
 }
 
 let userName = getUserName()
-console.log(userName)
+// console.log(userName)
 
 
 
@@ -37,5 +37,5 @@ function getMuchCash(){
          return muchCash
     }
     
-    let muchCash = getMuchCAsh();
+    let muchCash = getMuchCash();
     console.log(muchCash)
