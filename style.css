@@ -22,11 +22,8 @@ body {
     color: rgb(49, 49, 49);
     padding: 10px;
     width: 100%;
-<<<<<<< HEAD
     /* text-align: center; */
-=======
 /*     text-align: center; */
->>>>>>> 0750f365af16cd493e8819f95f1680000cb4cd2d
     
 }
 
@@ -69,50 +66,19 @@ a:hover {
     color: rgb(0, 40, 173);
 }
 
-<<<<<<< HEAD
-.product {
-           margin: 5px;
-            padding: 5px;
-            display: inline-block;
-
-}
-
-.product img {
-          float: left;
-          padding: 20px;
-}
-
-.product a:hover {
-    color: rgb(0, 40, 173);
-}
-
-button {
-   background-color: goldenrod;
-}
-=======
->>>>>>> 0750f365af16cd493e8819f95f1680000cb4cd2d
 
 footer li {
     background-color: #000000;
     padding: 0px 20px;
-<<<<<<< HEAD
-    display: inline;
-    text-align: center;
-=======
     /* margin: 0%; */
     display: inline;
     text-align: center;
     /* padding-left: 20%; */
     /* width: 100%; */
->>>>>>> 0750f365af16cd493e8819f95f1680000cb4cd2d
     color: rgba(208, 212, 223, 0.877);
     
 }
 
 footer nav, p {
     text-align: center;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0750f365af16cd493e8819f95f1680000cb4cd2d
