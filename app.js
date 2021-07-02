@@ -69,16 +69,18 @@ function getMuchCash(){
 
         else if(userAnswer == kJesko){
             alert('Congratulation you are now in a lucky draw to win the Jesko!');
-            document.write('<img src="absolut.jpg" width="50%">');
             document.write('<h4>'+userAnswer+' Mph is the correct answer, you have won!'+'<\h4>')
+            document.write('<img src="absolut.jpg" width="50%">');
             break;
     
         }
 
         else if(userAnswer == kGemera){
             alert('Congratulation you are now in a lucky draw to win the Gemera!');
-            document.write('<img src="gemera.jpg" width="50%">');
+
             document.write('<h4>'+userAnswer+' Mph is the correct answer, you have won!'+'<\h4>')
+            document.write('<img src="gemera.jpg" width="50%">');
+           
             break;
    
         }
@@ -90,15 +92,13 @@ function getMuchCash(){
         
            
             
-        }
-
         if(i = numberOfGuess){
             alert('Ooops you almost Won! better luck next time.');
         }
 
 }
     
-
+}
 
 
 
