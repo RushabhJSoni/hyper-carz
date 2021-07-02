@@ -90,13 +90,13 @@ function getMuchCash(){
                 
             }
         
-           
+        }
             
         if(i = numberOfGuess){
             alert('Ooops you almost Won! better luck next time.');
         }
 
-}
+
     
 }
 
