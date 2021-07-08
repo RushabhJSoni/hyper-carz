@@ -52,11 +52,11 @@ function getMuchCash(){
         for(let i = 0; i < numberOfGuess; i++){
     
         console.log(i);
-        let userAnswer = prompt('Guess top speed(mph) and win a koenigsegg');
+        let userAnswer = prompt('Guess top speed(mph) and win a koenigsegg "hint 250,251,300"');
         while(userAnswer <= 0 || userAnswer > 300) {
             userAnswer = prompt('Please enter speed less 301mph');
             console.log('User Guess: ' + userAnswer);
-        } 
+        }
         document.write('<h4> Your Guess was'+userAnswer+' Mph</h4>');
 
         if(userAnswer == kRegera){
@@ -88,17 +88,22 @@ function getMuchCash(){
         else {
                  alert('Try again!');
                 
-            }
-        
-        }
-            
-        if(i = numberOfGuess){
+            } 
+
+        if(i >= numberOfGuess){
             alert('Ooops you almost Won! better luck next time.');
+            break;
         }
 
-
+        }    
     
 }
+
+
+   
+    
+
+    
 
 
 
