@@ -1,71 +1,392 @@
 <!DOCTYPE html>
-
-<html>
-    <head>
-        
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width">
-            <title>Hyper-Carz</title>
-            <link rel="stylesheet" href="style.css" type="text/css"> 
-            <script type = "text/javascript" src="app.js">  
-            </script>     
-
-    </head>
-
-<body>
-    <header>
-        <h1>Latest and Greatest Koenigsegg Hyper Cars</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="">Purchase</a></li>
-                <li><a href="">About</a></li>
-            </ul>
-        </nav>
-        <h2 id="username"><script>getUserName();</script></h2>
-        <h3 id="username"><script>getMuchCash();</script></h3>
-        <script>topSpeed();</script>
-        <script>guessingGame()</script>
-        <p>correct answer's are 250,251,300</p>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Hyper-Carz is the Koenigsegg performance programme. Explore the engineering brief, review the flagship lineup, and run an interactive mission console with telemetry-driven strategy simulations."
+    />
+    <title>Hyper-Carz — Koenigsegg Performance Programme</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <header class="masthead" id="top">
+      <div class="masthead__backdrop" aria-hidden="true"></div>
+      <div class="masthead__image" aria-hidden="true"></div>
+      <div class="masthead__overlay" aria-hidden="true"></div>
+      <nav class="nav" aria-label="Primary">
+        <a class="nav__logo" href="#top" aria-label="Hyper-Carz home">Hyper-Carz</a>
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+          <span class="visually-hidden">Toggle navigation</span>
+        </button>
+        <ul id="primary-nav" class="nav__list">
+          <li><a href="#briefing">Briefing</a></li>
+          <li><a href="#lineup">Portfolio</a></li>
+          <li><a href="#innovation">Innovation</a></li>
+          <li><a href="#simulator">Mission console</a></li>
+        </ul>
+      </nav>
+      <div class="masthead__inner">
+        <div class="masthead__content">
+          <p class="masthead__eyebrow">Koenigsegg Special Projects</p>
+          <h1 class="masthead__title">Precision, provenance, and telemetry-proven pace.</h1>
+          <p class="masthead__copy">
+            Hyper-Carz curates the marque's most focused machines and the tools the factory team uses to sign off on 300 mph
+            programmes. Review the technical brief and run the same mission simulations that drive the fleet’s validation.
+          </p>
+          <div class="masthead__actions">
+            <a class="button button--primary" href="#simulator">Launch mission console</a>
+            <a class="button button--ghost" href="#briefing">Review briefing dossier</a>
+          </div>
+        </div>
+        <div class="masthead__metrics">
+          <div class="masthead__media" role="presentation"></div>
+          <dl class="metric-grid">
+            <div>
+              <dt>Longest run</dt>
+              <dd>4.5 km runway deployment</dd>
+            </div>
+            <div>
+              <dt>Thermal ceiling</dt>
+              <dd>135°C systems limit</dd>
+            </div>
+            <div>
+              <dt>Simulator scope</dt>
+              <dd>3 proving grounds • telemetry log</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
     </header>
-    <hr>
-    <main>
-        
-        <section class="sec">
-            <h2>The Koenigsegg Regera</h2>
-            <img id="img1" src="Regera.jpg" width="50%" height="50%">
-            <p>
-                Is specifically designed to be a luxury Megacar alternative to Koenigsegg’s traditional extreme, light weight, race-like road cars.
 
-The Koenigsegg Regera combines a powerful <em>twin-turbo V8 combustion</em> engine with three electric motors and cutting edge battery power via new powertrain technology called Koenigsegg Direct Drive.<br> This revolutionary technology removes the traditional gearbox, making the car lighter and more efficient.
+    <main>
+      <section class="section section--dense" id="briefing">
+        <div class="section__container">
+          <header class="section__heading">
+            <p class="section__eyebrow">Engineering dossier</p>
+            <h2 class="section__title">The systems brief straight from Ängelholm.</h2>
+            <p class="section__lede">
+              Three pillars shape every validation run: active aerodynamics, thermal resilience, and track intelligence. Use this
+              briefing as the reference for every call you make inside the console.
             </p>
-        </section>
-        <section class="sec">
-            <h2>The Koenigsegg Jesko Absolut</h2>
-            <img id="img2" src="absolut.jpg"  width="50%" height="50%">
-            <p>
-                The Koenigsegg Jesko Absolut has been unveiled. It is the <strong>fastest Koenigsegg ever made</strong> and the company will never endeavor to make a faster series-production road car – ever. Customers will be able to choose between the Jesko Absolut and the more track-oriented Jesko version that was presented a year ago.
-Every surface element on the Jesko Absolut has been purposefully constructed to reduce drag or surrounding turbulence around the car while increasing high-speed stability. Although just as powerful, the Jesko Absolut is a more seamless and stealthier interpretation of the Jesko, its track-focused sibling.
+          </header>
+          <div class="briefing-grid">
+            <article class="briefing-card">
+              <h3>Active control stack</h3>
+              <p>
+                SmartCluster samples yaw, pitch, and wind shear at 600 Hz to trim drag or add yaw authority. The simulator models
+                these corrections when you shift aero balance or increase risk tolerance.
+              </p>
+            </article>
+            <article class="briefing-card">
+              <h3>Thermal headroom</h3>
+              <p>
+                Koenigsegg’s triplex dampers share loads with the battery buffer. Push ERS deployments too hard and the system will
+                clip power above 135°C. Balance outright speed with the heat load you can sustain.
+              </p>
+            </article>
+            <article class="briefing-card">
+              <h3>Track intelligence</h3>
+              <p>
+                Every proving ground feeds friction coefficients, wind profiles, and surface temperature data. Recon options in the
+                console replicate how the team validates grip before each certification attempt.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="lineup">
+        <div class="section__container">
+          <header class="section__heading section__heading--split">
+            <div>
+              <p class="section__eyebrow">Portfolio</p>
+              <h2 class="section__title">Flagship hardware for v-max and endurance certification.</h2>
+            </div>
+            <p class="section__lede">
+              Each chassis carries a distinct mandate, from low-drag runway assaults to cold-weather shakedowns. Select your tool
+              wisely inside the console—the scenarios mirror these real deployments.
             </p>
-        </section>
-        <section class="sec">
-            <h2>The Konneiseg Gemera</h2>
-            <img id="img3" src="gemera.jpg"  width="50%" height="50%">
-            <p>
-                Ultimate performance has belonged to the world of two-seaters with very limited luggage space – until now. The Gemera is the world’s first Mega-GT and Koenigsegg’s first four-seater. Extreme megacar meets spacious interior and ultimate environmental consciousness..
+          </header>
+          <div class="lineup-grid">
+            <article class="vehicle-card">
+              <figure class="vehicle-card__media">
+                <img
+                  src="https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=1600&q=80"
+                  alt="Koenigsegg Jesko Absolut parked under spotlights"
+                  loading="lazy"
+                />
+              </figure>
+              <div class="vehicle-card__body">
+                <h3>Jesko Absolut</h3>
+                <p>
+                  Longtail silhouette with drag coefficient trimmed to 0.28. The Light Speed Transmission runs bespoke ratios to
+                  hold thrust well past 300 mph, perfect for Shuttle Landing Facility runs.
+                </p>
+                <dl class="vehicle-card__specs">
+                  <div>
+                    <dt>Projected ceiling</dt>
+                    <dd>330 mph</dd>
+                  </div>
+                  <div>
+                    <dt>Power unit</dt>
+                    <dd>1,600 hp twin-turbo V8 (E85)</dd>
+                  </div>
+                  <div>
+                    <dt>Signature</dt>
+                    <dd>Low-drag runway assaults</dd>
+                  </div>
+                </dl>
+              </div>
+            </article>
+            <article class="vehicle-card">
+              <figure class="vehicle-card__media">
+                <img
+                  src="https://images.unsplash.com/photo-1639839335741-569def157295?auto=format&fit=crop&w=1600&q=80"
+                  alt="Koenigsegg Regera in a studio environment"
+                  loading="lazy"
+                />
+              </figure>
+              <div class="vehicle-card__body">
+                <h3>Regera</h3>
+                <p>
+                  Direct Drive hybridization delivers seamless torque with fewer mechanical losses. Ideal for high-speed rings where
+                  thermal control and power delivery consistency matter more than raw drag figures.
+                </p>
+                <dl class="vehicle-card__specs">
+                  <div>
+                    <dt>Projected ceiling</dt>
+                    <dd>300 mph</dd>
+                  </div>
+                  <div>
+                    <dt>Power unit</dt>
+                    <dd>1,500 hp twin-turbo V8 hybrid</dd>
+                  </div>
+                  <div>
+                    <dt>Signature</dt>
+                    <dd>High-speed consistency</dd>
+                  </div>
+                </dl>
+              </div>
+            </article>
+            <article class="vehicle-card">
+              <figure class="vehicle-card__media">
+                <img
+                  src="https://images.unsplash.com/photo-1606664515524-ed2f54813f5c?auto=format&fit=crop&w=1600&q=80"
+                  alt="Koenigsegg Gemera driving on an icy proving ground"
+                  loading="lazy"
+                />
+              </figure>
+              <div class="vehicle-card__body">
+                <h3>Gemera</h3>
+                <p>
+                  Tiny Friendly Giant hybrid tech with torque-vectoring for cold weather proving. Four-wheel torque distribution and
+                  carbon-ceramic brakes make it the choice when Arctic crosswinds demand stability.
+                </p>
+                <dl class="vehicle-card__specs">
+                  <div>
+                    <dt>Projected ceiling</dt>
+                    <dd>248 mph</dd>
+                  </div>
+                  <div>
+                    <dt>Power unit</dt>
+                    <dd>1,700 hp hybrid (TFG + e-motors)</dd>
+                  </div>
+                  <div>
+                    <dt>Signature</dt>
+                    <dd>Cold-weather shakedowns</dd>
+                  </div>
+                </dl>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--dense" id="innovation">
+        <div class="section__container">
+          <header class="section__heading section__heading--center">
+            <p class="section__eyebrow">Innovation threads</p>
+            <h2 class="section__title">From aero labs to power electronics.</h2>
+            <p class="section__lede">
+              Validation isn’t just a straight-line chase. Hyper-Carz pulls R&D insights from the carbon lab, aero tunnels, and
+              data science teams. These programmes influence the sliders you control inside the console.
             </p>
-        </section>
+          </header>
+          <div class="innovation-grid">
+            <article class="innovation-card">
+              <h3>Carbon intelligence</h3>
+              <p>
+                Ultrasonic layup scans measure stiffness deltas across the monocoque to adjust aero load limits. Selecting higher
+                downforce packages in the simulator taps into this reserve.
+              </p>
+            </article>
+            <article class="innovation-card">
+              <h3>Drag signature lab</h3>
+              <p>
+                Rolling-road wind tunnel data feed the drag penalties per site. Shuttle Landing Facility runs use low yaw, while
+                Nardò’s banking introduces crosswind corrections you must anticipate.
+              </p>
+            </article>
+            <article class="innovation-card">
+              <h3>Thermal analytics</h3>
+              <p>
+                Machine-learning models predict battery delta-T when you pick ERS aggression strategies. Exceed the thermal ceiling
+                and the mission will auto-abort with a systems cooling cycle.
+              </p>
+            </article>
+            <article class="innovation-card">
+              <h3>Surface reconnaissance</h3>
+              <p>
+                Recon options simulate the tyre temperature blankets, friction surveys, and LiDAR scans the team deploys before a
+                certification pass. Use them to gain grip or resilience at the cost of prep time.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--mission" id="simulator">
+        <div class="section__container">
+          <header class="section__heading section__heading--split">
+            <div>
+              <p class="section__eyebrow">Mission console</p>
+              <h2 class="section__title">Simulate the validation programme with live telemetry.</h2>
+            </div>
+            <p class="section__lede">
+              Configure the car, aero, tyres, and ERS delivery, then balance risk tolerance with reconnaissance prep. The console
+              runs three proving grounds with telemetry logging for each sector of the run.
+            </p>
+          </header>
+          <div class="simulator-grid">
+            <aside class="simulator-panel simulator-panel--setup">
+              <h3>1. Pilot credentials</h3>
+              <form id="pilot-form" novalidate>
+                <label for="pilot-name">Call sign</label>
+                <input id="pilot-name" name="pilot-name" type="text" autocomplete="name" placeholder="e.g. NOVA" required />
+                <p id="pilot-error" class="form-error" role="alert" aria-live="polite"></p>
+                <button type="submit" class="button button--primary" data-action="start-simulator">Enter console</button>
+              </form>
+
+              <div class="options" aria-live="polite" id="options-panel">
+                <h3>2. Select your configuration</h3>
+                <div class="option-group" id="car-options" aria-label="Vehicle selection"></div>
+                <div class="option-group" id="aero-options" aria-label="Aero package"></div>
+                <div class="option-group" id="tire-options" aria-label="Tyre compound"></div>
+                <div class="option-group" id="ers-options" aria-label="ERS deployment"></div>
+              </div>
+            </aside>
+
+            <section class="simulator-panel simulator-panel--console" id="scenario-panel" hidden>
+              <header class="scenario-header">
+                <div class="scenario-header__meta">
+                  <p class="scenario-header__eyebrow">Active scenario</p>
+                  <h3 id="scenario-title"></h3>
+                  <p id="scenario-runway" class="scenario-header__detail"></p>
+                  <p id="scenario-conditions" class="scenario-header__detail scenario-header__detail--muted"></p>
+                </div>
+                <div class="scenario-header__target">
+                  <p>Target speed</p>
+                  <strong id="scenario-target"></strong>
+                </div>
+              </header>
+
+              <form id="scenario-form" class="scenario-form">
+                <div class="scenario-form__group">
+                  <label for="risk">Risk tolerance</label>
+                  <input id="risk" name="risk" type="range" min="0" max="100" value="45" />
+                  <output for="risk" id="risk-output">45%</output>
+                </div>
+
+                <fieldset class="scenario-form__group">
+                  <legend>Reconnaissance prep</legend>
+                  <div class="scenario-form__options">
+                    <label>
+                      <input type="radio" name="recon" value="baseline" checked />
+                      <span>Baseline systems check</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="recon" value="surface" />
+                      <span>Surface temperature sweep</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="recon" value="wind" />
+                      <span>Wind shear LiDAR</span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <div class="scenario-form__actions">
+                  <button class="button button--ghost" type="button" data-action="cancel-simulator">Abort mission</button>
+                  <button class="button button--primary" type="submit">Execute run</button>
+                </div>
+              </form>
+
+              <div class="scenario-feedback" id="scenario-feedback" aria-live="polite"></div>
+              <div class="scenario-log" aria-live="polite">
+                <h4>Mission log</h4>
+                <ol id="scenario-log"></ol>
+              </div>
+            </section>
+
+            <aside class="simulator-panel simulator-panel--summary" id="simulator-summary" hidden>
+              <h3>Telemetry summary</h3>
+              <div class="summary-intro">
+                <p class="simulator__summary-text"></p>
+                <button class="button button--ghost" type="button" data-action="restart-simulator">Restart programme</button>
+              </div>
+              <dl class="summary-metrics">
+                <div>
+                  <dt>Average terminal speed</dt>
+                  <dd data-summary="avg-speed">—</dd>
+                </div>
+                <div>
+                  <dt>Thermal load peak</dt>
+                  <dd data-summary="thermal">—</dd>
+                </div>
+                <div>
+                  <dt>Success rate</dt>
+                  <dd data-summary="success">—</dd>
+                </div>
+              </dl>
+              <div class="summary-table">
+                <table>
+                  <caption>Scenario breakdown</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Scenario</th>
+                      <th scope="col">Terminal</th>
+                      <th scope="col">Stability margin</th>
+                      <th scope="col">Thermal peak</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody data-summary="rows"></tbody>
+                </table>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
     </main>
-    <hr>
-    <footer>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="">Purchase</a></li>
-                <li><a href="">About</a></li>
-            </ul>
-        </nav>
-        <p>&#169;Hyper Carz</p>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>© <span id="footer-year"></span> Hyper-Carz programme. Crafted in Ängelholm.</p>
+        <a href="#top">Back to top</a>
+      </div>
     </footer>
-</body>
+
+    <script src="app.js" type="module"></script>
+  </body>
 </html>
