@@ -42,6 +42,32 @@
           We'll ask your name, check if you're ready to invest in a Koenigsegg, and quiz you on top speeds. You can cancel at any
           time.
         </p>
+        <div id="experience-workflow" class="experience-workflow" hidden>
+          <form id="experience-name-form" class="experience-form" autocomplete="off">
+            <label class="experience-form__label" for="experience-name-input">What's your name, pilot?</label>
+            <div class="experience-form__controls">
+              <input
+                id="experience-name-input"
+                class="experience-form__input"
+                name="name"
+                type="text"
+                minlength="1"
+                required
+              />
+              <button class="experience-form__submit" type="submit">Continue</button>
+              <button class="experience-form__cancel" type="button" data-action="cancel-experience">Cancel</button>
+            </div>
+            <p id="experience-name-error" class="experience-form__error" role="alert" aria-live="polite"></p>
+          </form>
+          <div id="experience-budget-step" class="experience-form" hidden>
+            <p class="experience-form__label">Do you have a million dollars available for a Koenigsegg?</p>
+            <div class="experience-form__controls">
+              <button class="experience-form__choice" type="button" data-action="budget-yes">Absolutely</button>
+              <button class="experience-form__choice" type="button" data-action="budget-no">Not yet</button>
+              <button class="experience-form__cancel" type="button" data-action="cancel-experience">Cancel</button>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
     <main class="page-content">
@@ -91,6 +117,25 @@
           <h2 class="challenge__title">Hyper-Carz Top Speed Challenge</h2>
           <p class="challenge__subtitle">You have five attempts to match each Koenigsegg to its top speed. Hints: 250, 251, 300 mph.</p>
         </div>
+        <form id="challenge-form" class="challenge__form" hidden novalidate>
+          <label class="challenge__label" for="challenge-input">Enter your top-speed guess (mph)</label>
+          <div class="challenge__controls">
+            <input
+              id="challenge-input"
+              class="challenge__input"
+              type="number"
+              inputmode="numeric"
+              min="1"
+              max="320"
+              step="1"
+              aria-describedby="challenge-status"
+            />
+            <button class="challenge__submit" type="submit">Submit guess</button>
+            <button class="challenge__cancel" type="button" data-action="cancel-game">Cancel</button>
+          </div>
+          <p id="challenge-status" class="challenge__status"></p>
+          <p id="challenge-error" class="challenge__error" role="alert" aria-live="polite"></p>
+        </form>
         <ol id="challenge-results" class="challenge__results"></ol>
         <figure id="challenge-reward" class="challenge__reward" hidden>
           <img id="reward-image" alt="" />
