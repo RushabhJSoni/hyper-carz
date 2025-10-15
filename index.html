@@ -1,71 +1,158 @@
 <!DOCTYPE html>
-
-<html>
-    <head>
-        
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width">
-            <title>Hyper-Carz</title>
-            <link rel="stylesheet" href="style.css" type="text/css"> 
-            <script type = "text/javascript" src="app.js">  
-            </script>     
-
-    </head>
-
-<body>
-    <header>
-        <h1>Latest and Greatest Koenigsegg Hyper Cars</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="">Purchase</a></li>
-                <li><a href="">About</a></li>
-            </ul>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Explore the latest Koenigsegg hyper cars and test your knowledge of their record-shattering top speeds."
+    />
+    <title>Hyper-Carz</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <header class="site-header" id="top">
+      <div class="site-header__inner">
+        <div class="site-branding">
+          <h1 class="site-title">Latest and Greatest Koenigsegg Hyper Cars</h1>
+          <p class="site-tagline">
+            Discover headline specs, stunning photography, and a quick-fire challenge to see if you know these megacars as well as
+            you think you do.
+          </p>
+        </div>
+        <nav class="primary-nav" aria-label="Primary">
+          <ul class="primary-nav__list">
+            <li class="primary-nav__item"><a class="primary-nav__link" href="#regera">Regera</a></li>
+            <li class="primary-nav__item"><a class="primary-nav__link" href="#jesko">Jesko Absolut</a></li>
+            <li class="primary-nav__item"><a class="primary-nav__link" href="#gemera">Gemera</a></li>
+          </ul>
         </nav>
-        <h2 id="username"><script>getUserName();</script></h2>
-        <h3 id="username"><script>getMuchCash();</script></h3>
-        <script>topSpeed();</script>
-        <script>guessingGame()</script>
-        <p>correct answer's are 250,251,300</p>
+      </div>
+      <div class="experience-panel" aria-live="polite">
+        <div class="experience-panel__messages">
+          <p id="welcome-message" class="experience-panel__message experience-panel__message--highlight">
+            Ready to take the Hyper-Carz challenge?
+          </p>
+          <p id="cash-message" class="experience-panel__message"></p>
+        </div>
+        <button class="experience-panel__button" data-action="start-experience" type="button">
+          Start the Hyper-Carz challenge
+        </button>
+        <p class="experience-panel__hint">
+          We'll ask your name, check if you're ready to invest in a Koenigsegg, and quiz you on top speeds. You can cancel at any
+          time.
+        </p>
+        <div id="experience-workflow" class="experience-workflow" hidden>
+          <form id="experience-name-form" class="experience-form" autocomplete="off">
+            <label class="experience-form__label" for="experience-name-input">What's your name, pilot?</label>
+            <div class="experience-form__controls">
+              <input
+                id="experience-name-input"
+                class="experience-form__input"
+                name="name"
+                type="text"
+                minlength="1"
+                required
+              />
+              <button class="experience-form__submit" type="submit">Continue</button>
+              <button class="experience-form__cancel" type="button" data-action="cancel-experience">Cancel</button>
+            </div>
+            <p id="experience-name-error" class="experience-form__error" role="alert" aria-live="polite"></p>
+          </form>
+          <div id="experience-budget-step" class="experience-form" hidden>
+            <p class="experience-form__label">Do you have a million dollars available for a Koenigsegg?</p>
+            <div class="experience-form__controls">
+              <button class="experience-form__choice" type="button" data-action="budget-yes">Absolutely</button>
+              <button class="experience-form__choice" type="button" data-action="budget-no">Not yet</button>
+              <button class="experience-form__cancel" type="button" data-action="cancel-experience">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
-    <hr>
-    <main>
-        
-        <section class="sec">
-            <h2>The Koenigsegg Regera</h2>
-            <img id="img1" src="Regera.jpg" width="50%" height="50%">
-            <p>
-                Is specifically designed to be a luxury Megacar alternative to Koenigsegg’s traditional extreme, light weight, race-like road cars.
-
-The Koenigsegg Regera combines a powerful <em>twin-turbo V8 combustion</em> engine with three electric motors and cutting edge battery power via new powertrain technology called Koenigsegg Direct Drive.<br> This revolutionary technology removes the traditional gearbox, making the car lighter and more efficient.
-            </p>
-        </section>
-        <section class="sec">
-            <h2>The Koenigsegg Jesko Absolut</h2>
-            <img id="img2" src="absolut.jpg"  width="50%" height="50%">
-            <p>
-                The Koenigsegg Jesko Absolut has been unveiled. It is the <strong>fastest Koenigsegg ever made</strong> and the company will never endeavor to make a faster series-production road car – ever. Customers will be able to choose between the Jesko Absolut and the more track-oriented Jesko version that was presented a year ago.
-Every surface element on the Jesko Absolut has been purposefully constructed to reduce drag or surrounding turbulence around the car while increasing high-speed stability. Although just as powerful, the Jesko Absolut is a more seamless and stealthier interpretation of the Jesko, its track-focused sibling.
-            </p>
-        </section>
-        <section class="sec">
-            <h2>The Konneiseg Gemera</h2>
-            <img id="img3" src="gemera.jpg"  width="50%" height="50%">
-            <p>
-                Ultimate performance has belonged to the world of two-seaters with very limited luggage space – until now. The Gemera is the world’s first Mega-GT and Koenigsegg’s first four-seater. Extreme megacar meets spacious interior and ultimate environmental consciousness..
-            </p>
-        </section>
+    <main class="page-content">
+      <section class="feature" id="regera">
+        <div class="feature__media">
+          <img src="Regera.jpg" alt="Blue Koenigsegg Regera parked in front of a modern building" />
+        </div>
+        <div class="feature__body">
+          <h2 class="feature__title">The Koenigsegg Regera</h2>
+          <p>
+            The Koenigsegg Regera is designed as a luxury megacar alternative to Koenigsegg’s traditional lightweight, track-focused
+            machines. It combines a powerful <em>twin-turbo V8</em> with three electric motors and cutting-edge battery power via
+            Koenigsegg Direct Drive. This revolutionary system removes the traditional gearbox, making the car lighter and more
+            efficient while still delivering mind-bending power.
+          </p>
+        </div>
+      </section>
+      <section class="feature feature--reverse" id="jesko">
+        <div class="feature__media">
+          <img src="absolut.jpg" alt="Silver Koenigsegg Jesko Absolut profile shot on a runway" />
+        </div>
+        <div class="feature__body">
+          <h2 class="feature__title">The Koenigsegg Jesko Absolut</h2>
+          <p>
+            The Jesko Absolut is the fastest Koenigsegg ever built and represents the brand’s final word in top-speed records for
+            series-production road cars. Every body panel has been carefully sculpted to reduce drag and turbulent airflow while
+            maintaining high-speed stability. Although just as potent as the track-focused Jesko, the Absolut is the stealthier,
+            more streamlined interpretation designed purely for outright speed.
+          </p>
+        </div>
+      </section>
+      <section class="feature" id="gemera">
+        <div class="feature__media">
+          <img src="gemera.jpg" alt="Yellow Koenigsegg Gemera driving on a coastal road" />
+        </div>
+        <div class="feature__body">
+          <h2 class="feature__title">The Koenigsegg Gemera</h2>
+          <p>
+            The Gemera introduces four-seat practicality to the megacar world without sacrificing staggering performance. It blends
+            extreme capability with a spacious interior and innovative hybrid technology, ensuring that mega-GT comfort and
+            environmental responsibility can coexist with Koenigsegg-level thrills.
+          </p>
+        </div>
+      </section>
+      <section class="challenge" aria-live="polite">
+        <div class="challenge__header">
+          <h2 class="challenge__title">Hyper-Carz Top Speed Challenge</h2>
+          <p class="challenge__subtitle">You have five attempts to match each Koenigsegg to its top speed. Hints: 250, 251, 300 mph.</p>
+        </div>
+        <form id="challenge-form" class="challenge__form" hidden novalidate>
+          <label class="challenge__label" for="challenge-input">Enter your top-speed guess (mph)</label>
+          <div class="challenge__controls">
+            <input
+              id="challenge-input"
+              class="challenge__input"
+              type="number"
+              inputmode="numeric"
+              min="1"
+              max="320"
+              step="1"
+              aria-describedby="challenge-status"
+            />
+            <button class="challenge__submit" type="submit">Submit guess</button>
+            <button class="challenge__cancel" type="button" data-action="cancel-game">Cancel</button>
+          </div>
+          <p id="challenge-status" class="challenge__status"></p>
+          <p id="challenge-error" class="challenge__error" role="alert" aria-live="polite"></p>
+        </form>
+        <ol id="challenge-results" class="challenge__results"></ol>
+        <figure id="challenge-reward" class="challenge__reward" hidden>
+          <img id="reward-image" alt="" />
+          <figcaption id="reward-caption"></figcaption>
+        </figure>
+      </section>
     </main>
-    <hr>
-    <footer>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="">Purchase</a></li>
-                <li><a href="">About</a></li>
-            </ul>
-        </nav>
-        <p>&#169;Hyper Carz</p>
+    <footer class="site-footer">
+      <nav class="secondary-nav" aria-label="Secondary">
+        <ul class="secondary-nav__list">
+          <li class="secondary-nav__item"><a class="secondary-nav__link" href="#top">Home</a></li>
+          <li class="secondary-nav__item"><a class="secondary-nav__link" href="#">Purchase</a></li>
+          <li class="secondary-nav__item"><a class="secondary-nav__link" href="#">About</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__copyright">&copy; Hyper-Carz</p>
     </footer>
-</body>
+    <script src="app.js" defer></script>
+  </body>
 </html>
