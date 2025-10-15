@@ -1,71 +1,286 @@
 <!DOCTYPE html>
-
-<html>
-    <head>
-        
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width">
-            <title>Hyper-Carz</title>
-            <link rel="stylesheet" href="style.css" type="text/css"> 
-            <script type = "text/javascript" src="app.js">  
-            </script>     
-
-    </head>
-
-<body>
-    <header>
-        <h1>Latest and Greatest Koenigsegg Hyper Cars</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="">Purchase</a></li>
-                <li><a href="">About</a></li>
-            </ul>
-        </nav>
-        <h2 id="username"><script>getUserName();</script></h2>
-        <h3 id="username"><script>getMuchCash();</script></h3>
-        <script>topSpeed();</script>
-        <script>guessingGame()</script>
-        <p>correct answer's are 250,251,300</p>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Explore the Koenigsegg portfolio with editorial storytelling and run the track strategy simulator to see if your choices can deliver new top-speed records."
+    />
+    <title>Hyper-Carz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <div class="hero__overlay"></div>
+      <nav class="hero__nav" aria-label="Primary">
+        <a class="hero__logo" href="#top" aria-label="Hyper-Carz home">
+          <span>Hyper-Carz</span>
+        </a>
+        <button class="hero__nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          <span class="hero__nav-toggle-bar"></span>
+          <span class="hero__nav-toggle-bar"></span>
+          <span class="hero__nav-toggle-bar"></span>
+          <span class="visually-hidden">Toggle navigation</span>
+        </button>
+        <ul id="primary-nav" class="hero__nav-list">
+          <li><a href="#lineup">Lineup</a></li>
+          <li><a href="#aero">Aero Lab</a></li>
+          <li><a href="#simulator">Simulator</a></li>
+        </ul>
+      </nav>
+      <div class="hero__content">
+        <p class="hero__eyebrow">Koenigsegg Performance Division</p>
+        <h1 class="hero__title">Built for the runway, tuned for the impossible.</h1>
+        <p class="hero__copy">
+          Explore the engineering philosophy behind the world’s most advanced megacars, then take the helm as performance
+          director in our data-driven strategy simulator.
+        </p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="#simulator">Launch the simulator</a>
+          <a class="button button--ghost" href="#lineup">Review the lineup</a>
+        </div>
+      </div>
+      <div class="hero__bottom-hint">Scroll to brief yourself on the cars you’ll command.</div>
     </header>
-    <hr>
-    <main>
-        
-        <section class="sec">
-            <h2>The Koenigsegg Regera</h2>
-            <img id="img1" src="Regera.jpg" width="50%" height="50%">
-            <p>
-                Is specifically designed to be a luxury Megacar alternative to Koenigsegg’s traditional extreme, light weight, race-like road cars.
 
-The Koenigsegg Regera combines a powerful <em>twin-turbo V8 combustion</em> engine with three electric motors and cutting edge battery power via new powertrain technology called Koenigsegg Direct Drive.<br> This revolutionary technology removes the traditional gearbox, making the car lighter and more efficient.
+    <main>
+      <section class="section lineup" id="lineup">
+        <div class="section__heading">
+          <p class="section__eyebrow">Flagship lineup</p>
+          <h2 class="section__title">Every Koenigsegg earns its wings in the speed lab.</h2>
+          <p class="section__lede">
+            Carbon fiber monocoques, Triplex suspension, and bespoke aero packages—each of these machines was sculpted to cut
+            through air at impossible velocity.
+          </p>
+        </div>
+        <div class="lineup__grid">
+          <article class="vehicle-card">
+            <div class="vehicle-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1618172193622-1d98d6bc35c2?auto=format&fit=crop&w=1600&q=80"
+                alt="Koenigsegg Jesko finished in Pearl white under studio lighting"
+              />
+            </div>
+            <div class="vehicle-card__body">
+              <h3 class="vehicle-card__title">Jesko Absolut</h3>
+              <p>
+                Designed to eliminate drag and turbulence, the Absolut is Koenigsegg’s final word on top speed, projected to
+                eclipse <strong>330 mph</strong> given a sufficient runway.
+              </p>
+              <dl class="vehicle-card__specs">
+                <div>
+                  <dt>Top speed</dt>
+                  <dd>330 mph (projected)</dd>
+                </div>
+                <div>
+                  <dt>Power</dt>
+                  <dd>1,600 hp</dd>
+                </div>
+                <div>
+                  <dt>Price</dt>
+                  <dd>$3.4M</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+          <article class="vehicle-card">
+            <div class="vehicle-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1621128320596-c2bb0a0b4bea?auto=format&fit=crop&w=1600&q=80"
+                alt="Koenigsegg Regera driving along a coastal highway"
+              />
+            </div>
+            <div class="vehicle-card__body">
+              <h3 class="vehicle-card__title">Regera</h3>
+              <p>
+                The hybrid grand tourer that introduced Koenigsegg Direct Drive, blending instant torque from electric motors
+                with a thunderous twin-turbo V8 for effortless acceleration.
+              </p>
+              <dl class="vehicle-card__specs">
+                <div>
+                  <dt>Top speed</dt>
+                  <dd>255 mph</dd>
+                </div>
+                <div>
+                  <dt>Power</dt>
+                  <dd>1,500 hp</dd>
+                </div>
+                <div>
+                  <dt>Price</dt>
+                  <dd>$2.2M</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+          <article class="vehicle-card">
+            <div class="vehicle-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1618172375641-5ba9dda3de2c?auto=format&fit=crop&w=1600&q=80"
+                alt="Koenigsegg Gemera parked in an architectural concrete garage"
+              />
+            </div>
+            <div class="vehicle-card__body">
+              <h3 class="vehicle-card__title">Gemera</h3>
+              <p>
+                The first four-seat megacar pairs a lightweight three-cylinder Freevalve engine with hybrid assistance to
+                deliver continent-crushing pace without sacrificing comfort.
+              </p>
+              <dl class="vehicle-card__specs">
+                <div>
+                  <dt>Top speed</dt>
+                  <dd>248 mph</dd>
+                </div>
+                <div>
+                  <dt>Power</dt>
+                  <dd>1,700 hp</dd>
+                </div>
+                <div>
+                  <dt>Price</dt>
+                  <dd>$1.7M</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section aero" id="aero">
+        <div class="section__heading">
+          <p class="section__eyebrow">Aero lab</p>
+          <h2 class="section__title">Precision airflow is the invisible chassis.</h2>
+          <p class="section__lede">
+            The philosophy extends beyond brute power. Koenigsegg teams map every molecule of air as it courses across the body
+            to maintain stability at the speeds you are about to target.
+          </p>
+        </div>
+        <div class="aero__metrics">
+          <article class="metric">
+            <h3>0.278 Cd</h3>
+            <p>Jesko Absolut’s drag coefficient, achieved with extended rear fairings and reduced aero trip surfaces.</p>
+          </article>
+          <article class="metric">
+            <h3>1,760 lb downforce</h3>
+            <p>Available on the Jesko Attack at 155 mph, enabling aggressive cornering on FIA-grade circuits.</p>
+          </article>
+          <article class="metric">
+            <h3>600 kg braking force</h3>
+            <p>Carbon-ceramic rotors harness Koenigsegg’s bespoke calipers to sustain repeated 200-to-0 mph stops.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section simulator" id="simulator">
+        <div class="section__heading section__heading--center">
+          <p class="section__eyebrow">Track strategy simulator</p>
+          <h2 class="section__title">Can your calls set a new verified top speed?</h2>
+          <p class="section__lede">
+            Assume the role of performance director. Assess the runway, evaluate conditions, and dispatch the Koenigsegg most
+            likely to secure the record. The data is sourced from real manufacturer targets and test data.
+          </p>
+        </div>
+
+        <div class="simulator__layout">
+          <div class="simulator__briefing">
+            <h3>Mission protocol</h3>
+            <ol>
+              <li>Log your call sign to access the control console.</li>
+              <li>Review each scenario’s target speed and runway conditions.</li>
+              <li>Deploy the car that can realistically secure the record. Three scenarios, no retries.</li>
+            </ol>
+            <p class="simulator__note">
+              Your score reflects validated record attempts. A clean sweep means you’re ready for a Koenigsegg proving session.
             </p>
-        </section>
-        <section class="sec">
-            <h2>The Koenigsegg Jesko Absolut</h2>
-            <img id="img2" src="absolut.jpg"  width="50%" height="50%">
-            <p>
-                The Koenigsegg Jesko Absolut has been unveiled. It is the <strong>fastest Koenigsegg ever made</strong> and the company will never endeavor to make a faster series-production road car – ever. Customers will be able to choose between the Jesko Absolut and the more track-oriented Jesko version that was presented a year ago.
-Every surface element on the Jesko Absolut has been purposefully constructed to reduce drag or surrounding turbulence around the car while increasing high-speed stability. Although just as powerful, the Jesko Absolut is a more seamless and stealthier interpretation of the Jesko, its track-focused sibling.
-            </p>
-        </section>
-        <section class="sec">
-            <h2>The Konneiseg Gemera</h2>
-            <img id="img3" src="gemera.jpg"  width="50%" height="50%">
-            <p>
-                Ultimate performance has belonged to the world of two-seaters with very limited luggage space – until now. The Gemera is the world’s first Mega-GT and Koenigsegg’s first four-seater. Extreme megacar meets spacious interior and ultimate environmental consciousness..
-            </p>
-        </section>
+          </div>
+          <div class="simulator__panel" aria-live="polite">
+            <button class="button button--primary simulator__start" type="button" data-action="start-simulator">
+              Begin briefing
+            </button>
+
+            <form id="pilot-form" class="simulator-form" hidden autocomplete="off">
+              <label class="simulator-form__label" for="pilot-name">Call sign</label>
+              <input
+                id="pilot-name"
+                class="simulator-form__input"
+                name="pilot-name"
+                type="text"
+                minlength="2"
+                maxlength="40"
+                required
+                placeholder="Ex: Apex One"
+              />
+              <div class="simulator-form__actions">
+                <button class="button button--primary" type="submit">Enter control room</button>
+                <button class="button button--ghost" type="button" data-action="cancel-simulator">Cancel</button>
+              </div>
+              <p id="pilot-error" class="simulator-form__error" role="alert"></p>
+            </form>
+
+            <div id="scenario-panel" class="scenario" hidden>
+              <header class="scenario__header">
+                <p class="scenario__round" id="scenario-round"></p>
+                <h3 class="scenario__title" id="scenario-title"></h3>
+              </header>
+              <dl class="scenario__details">
+                <div>
+                  <dt>Target speed</dt>
+                  <dd id="scenario-target"></dd>
+                </div>
+                <div>
+                  <dt>Runway</dt>
+                  <dd id="scenario-runway"></dd>
+                </div>
+                <div>
+                  <dt>Conditions</dt>
+                  <dd id="scenario-conditions"></dd>
+                </div>
+              </dl>
+              <form id="scenario-form" class="scenario-form">
+                <label class="scenario-form__label" for="scenario-select">Select your deployment</label>
+                <select id="scenario-select" class="scenario-form__select" required>
+                  <option value="">Choose a Koenigsegg</option>
+                </select>
+                <div class="scenario-form__actions">
+                  <button class="button button--primary" type="submit">Lock in strategy</button>
+                  <button class="button button--ghost" type="button" data-action="cancel-simulator">Abort mission</button>
+                </div>
+              </form>
+              <p id="scenario-feedback" class="scenario__feedback" role="status"></p>
+            </div>
+
+            <section class="simulator__results" aria-live="polite">
+              <h3>Mission log</h3>
+              <ol id="scenario-log" class="simulator__log"></ol>
+              <div id="simulator-summary" class="simulator__summary" hidden>
+                <p class="simulator__summary-text"></p>
+                <button class="button button--secondary" type="button" data-action="restart-simulator">
+                  Run another operation
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
     </main>
-    <hr>
-    <footer>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="">Purchase</a></li>
-                <li><a href="">About</a></li>
-            </ul>
-        </nav>
-        <p>&#169;Hyper Carz</p>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <a class="footer__logo" href="#top">Hyper-Carz</a>
+        <p class="footer__copy">&copy; <span id="footer-year"></span> Hyper-Carz. Crafted for enthusiasts obsessed with velocity.</p>
+        <div class="footer__links">
+          <a href="#lineup">Lineup</a>
+          <a href="#aero">Aero Lab</a>
+          <a href="#simulator">Simulator</a>
+        </div>
+      </div>
     </footer>
-</body>
+
+    <script src="app.js" defer></script>
+  </body>
 </html>
