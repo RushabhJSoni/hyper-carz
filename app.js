@@ -1,634 +1,307 @@
-const select = (selector, parent = document) => parent.querySelector(selector);
-const selectAll = (selector, parent = document) => [...parent.querySelectorAll(selector)];
-
-const navToggle = select('.nav__toggle');
-const navList = select('.nav__list');
-const mobileQuery = window.matchMedia('(max-width: 960px)');
-const startButton = select('[data-action="start-simulator"]');
-const cancelButtons = selectAll('[data-action="cancel-simulator"]');
-const restartButton = select('[data-action="restart-simulator"]');
-const pilotForm = select('#pilot-form');
-const pilotInput = select('#pilot-name');
-const pilotError = select('#pilot-error');
-const scenarioPanel = select('#scenario-panel');
-const scenarioForm = select('#scenario-form');
-const scenarioRound = select('#scenario-round');
-const scenarioTitle = select('#scenario-title');
-const scenarioTarget = select('#scenario-target');
-const scenarioRunway = select('#scenario-runway');
-const scenarioConditions = select('#scenario-conditions');
-const scenarioFeedback = select('#scenario-feedback');
-const scenarioLog = select('#scenario-log');
-const simulatorSummary = select('#simulator-summary');
-const simulatorSummaryText = select('.simulator__summary-text');
-const footerYear = select('#footer-year');
-const carOptionsContainer = select('#car-options');
-const aeroOptionsContainer = select('#aero-options');
-const tireOptionsContainer = select('#tire-options');
-const ersOptionsContainer = select('#ers-options');
-
 const cars = [
   {
-    id: 'jesko',
+    name: 'Regera',
+    topSpeed: 251,
+    image: 'Regera.jpg',
+    description: "A luxurious hybrid megacar blending a twin-turbo V8 with electric torque.",
+  },
+  {
     name: 'Jesko Absolut',
-    topSpeed: 330,
-    speedBias: 6,
-    stability: 64,
-    reliability: 66,
-    thermalBase: 72,
-    meta: '330 mph projected • V-max package',
+    topSpeed: 300,
+    image: 'absolut.jpg',
+    description: "A drag-optimised missile engineered for Koenigsegg's ultimate top-speed run.",
   },
   {
-    id: 'cc850',
-    name: 'CC850',
-    topSpeed: 280,
-    speedBias: 4,
-    stability: 72,
-    reliability: 74,
-    thermalBase: 64,
-    meta: 'Engage Shift System • 1,385 hp',
-  },
-  {
-    id: 'gemera',
     name: 'Gemera',
-    topSpeed: 248,
-    speedBias: 2,
-    stability: 78,
-    reliability: 80,
-    thermalBase: 58,
-    meta: 'Tiny Friendly Giant hybrid • 1,700 hp',
+    topSpeed: 250,
+    image: 'gemera.jpg',
+    description: 'The four-seat mega-GT that balances outrageous performance with practicality.',
   },
 ];
 
-const aeroPackages = [
-  {
-    id: 'low',
-    title: 'Streamline v-max',
-    meta: 'Longtail close-outs • trimmed wing angles',
-    speedGain: 14,
-    stability: -12,
-    reliability: -4,
-    heat: 6,
-  },
-  {
-    id: 'balanced',
-    title: 'Adaptive neutral',
-    meta: 'Active aero blending lift and drag reductions',
-    speedGain: 7,
-    stability: 0,
-    reliability: 2,
-    heat: 7,
-  },
-  {
-    id: 'downforce',
-    title: 'High-downforce attack',
-    meta: 'Max wing incidence • enhanced yaw authority',
-    speedGain: -6,
-    stability: 14,
-    reliability: 5,
-    heat: 9,
-  },
-];
+const MAX_ATTEMPTS = 5;
+const HINT_MESSAGE = cars
+  .map((car) => car.topSpeed)
+  .sort((a, b) => a - b)
+  .join(', ');
 
-const tireCompounds = [
-  {
-    id: 'vmax',
-    title: 'V-Max slick',
-    meta: 'Narrow temp window • lowest rolling resistance',
-    speedGain: 6,
-    stability: -4,
-    reliability: -3,
-    grip: 22,
-    heat: 18,
-  },
-  {
-    id: 'endurance',
-    title: 'Endurance slick',
-    meta: 'Stable carcass • multi-run thermal resilience',
-    speedGain: 2,
-    stability: 4,
-    reliability: 6,
-    grip: 19,
-    heat: 12,
-  },
-  {
-    id: 'wet',
-    title: 'Intermediate compound',
-    meta: 'Cut tread • excels on low-grip or cold surfaces',
-    speedGain: -8,
-    stability: 10,
-    reliability: 8,
-    grip: 28,
-    heat: 8,
-  },
-];
-
-const ersStrategies = [
-  {
-    id: 'overboost',
-    title: 'Overboost deployment',
-    meta: 'Full discharge for 30 sec • max thrust',
-    speedGain: 10,
-    stability: -5,
-    reliability: -8,
-    heat: 24,
-  },
-  {
-    id: 'balanced',
-    title: 'Balanced push',
-    meta: 'Staggered delivery • steady-state temps',
-    speedGain: 6,
-    stability: 0,
-    reliability: 2,
-    heat: 16,
-  },
-  {
-    id: 'endurance',
-    title: 'Thermal save',
-    meta: 'Protects cells • sustained repeatability',
-    speedGain: 3,
-    stability: 4,
-    reliability: 6,
-    heat: 10,
-  },
-];
-
-const scenarios = [
-  {
-    id: 'ksc',
-    title: 'Shuttle Landing Facility v-max certification',
-    targetSpeed: 315,
-    runway: 'Kennedy Space Center Runway 33L • 4.5 km concrete',
-    conditions: 'Ambient 76°F • crosswind 7 kt NE • density altitude +160 ft',
-    dragPenalty: 9,
-    airDensityBenefit: -3,
-    stabilityDemand: 72,
-    reliabilityDemand: 65,
-    failureThreshold: 48,
-    stabilityBonus: -2,
-    reliabilityBonus: -3,
-    thermalLimit: 130,
-    surfaceTemp: 92,
-    variability: 6,
-    defaults: { car: 'jesko', aero: 'low', tire: 'vmax', ers: 'overboost' },
-  },
-  {
-    id: 'nardo',
-    title: 'Nardò Technical Center high-speed consistency run',
-    targetSpeed: 285,
-    runway: 'Nardò high-speed ring • 12.5 km banked loop',
-    conditions: 'Track temp 88°F • headwind 4 kt • resurfaced polymer grip',
-    dragPenalty: 6,
-    airDensityBenefit: -1,
-    stabilityDemand: 68,
-    reliabilityDemand: 72,
-    failureThreshold: 42,
-    stabilityBonus: 4,
-    reliabilityBonus: 2,
-    thermalLimit: 138,
-    surfaceTemp: 110,
-    variability: 5,
-    defaults: { car: 'cc850', aero: 'balanced', tire: 'endurance', ers: 'balanced' },
-  },
-  {
-    id: 'asbru',
-    title: 'Ásbrú Arctic runway shakedown',
-    targetSpeed: 255,
-    runway: 'Keflavík Air Base auxiliary runway • 3.5 km asphalt',
-    conditions: 'Ambient 34°F • gusting crosswind 12 kt • frozen edges',
-    dragPenalty: -2,
-    airDensityBenefit: 4,
-    stabilityDemand: 78,
-    reliabilityDemand: 68,
-    failureThreshold: 50,
-    stabilityBonus: -6,
-    reliabilityBonus: -2,
-    thermalLimit: 118,
-    surfaceTemp: 42,
-    variability: 8,
-    defaults: { car: 'gemera', aero: 'downforce', tire: 'wet', ers: 'endurance' },
-  },
-];
-
-const carsMap = new Map(cars.map((car) => [car.id, car]));
-const aeroMap = new Map(aeroPackages.map((pkg) => [pkg.id, pkg]));
-const tireMap = new Map(tireCompounds.map((compound) => [compound.id, compound]));
-const ersMap = new Map(ersStrategies.map((strategy) => [strategy.id, strategy]));
-const scenarioMap = new Map(scenarios.map((scenario) => [scenario.id, scenario]));
+const selectors = {
+  startButton: '[data-action="start-experience"]',
+  welcomeMessage: '#welcome-message',
+  cashMessage: '#cash-message',
+  workflow: '#experience-workflow',
+  nameForm: '#experience-name-form',
+  nameInput: '#experience-name-input',
+  nameError: '#experience-name-error',
+  budgetStep: '#experience-budget-step',
+  resultsList: '#challenge-results',
+  rewardFigure: '#challenge-reward',
+  rewardImage: '#reward-image',
+  rewardCaption: '#reward-caption',
+  challengeForm: '#challenge-form',
+  challengeInput: '#challenge-input',
+  challengeStatus: '#challenge-status',
+  challengeError: '#challenge-error',
+};
 
 const state = {
-  active: false,
-  pilot: '',
-  round: 0,
-  score: 0,
-  results: [],
+  name: '',
+  hasFunds: false,
+  attempts: 0,
+  challengeActive: false,
 };
 
-const formatSpeed = (value) => `${Math.max(0, value)} mph`;
+document.addEventListener('DOMContentLoaded', () => {
+  const elements = getElements();
 
-const renderOptionGroup = (container, options, name) => {
-  if (!container) return;
-  container.innerHTML = '';
-  const fragment = document.createDocumentFragment();
-  options.forEach((option) => {
-    const label = document.createElement('label');
-    label.className = 'scenario-option';
-
-    const input = document.createElement('input');
-    input.type = 'radio';
-    input.name = name;
-    input.value = option.id;
-    input.required = true;
-
-    const title = document.createElement('span');
-    title.className = 'scenario-option__title';
-    title.textContent = option.title ?? option.name;
-
-    const meta = document.createElement('span');
-    meta.className = 'scenario-option__meta';
-    meta.textContent = option.meta;
-
-    label.append(input, title, meta);
-    fragment.append(label);
-  });
-
-  container.append(fragment);
-};
-
-const highlightSelection = (name) => {
-  if (!scenarioForm) return;
-  selectAll(`input[name="${name}"]`, scenarioForm).forEach((input) => {
-    const wrapper = input.closest('.scenario-option');
-    if (wrapper) {
-      wrapper.classList.toggle('is-selected', input.checked);
-    }
-  });
-};
-
-const setRadioValue = (name, value) => {
-  if (!scenarioForm) return;
-  selectAll(`input[name="${name}"]`, scenarioForm).forEach((input) => {
-    input.checked = input.value === value;
-  });
-  highlightSelection(name);
-};
-
-const populateOptions = () => {
-  renderOptionGroup(carOptionsContainer, cars, 'car');
-  renderOptionGroup(aeroOptionsContainer, aeroPackages, 'aero');
-  renderOptionGroup(tireOptionsContainer, tireCompounds, 'tire');
-  renderOptionGroup(ersOptionsContainer, ersStrategies, 'ers');
-  ['car', 'aero', 'tire', 'ers'].forEach(highlightSelection);
-};
-
-const openNav = (open) => {
-  navToggle?.setAttribute('aria-expanded', String(open));
-  if (!navList) return;
-  if (mobileQuery.matches) {
-    navList.setAttribute('aria-hidden', String(!open));
-  } else {
-    navList.removeAttribute('aria-hidden');
+  if (!elements) {
+    return;
   }
-};
 
-const toggleNav = () => {
-  const expanded = navToggle?.getAttribute('aria-expanded') === 'true';
-  openNav(!expanded);
-};
-
-const handleNavBreakpoint = () => {
-  if (!navList) return;
-  if (mobileQuery.matches) {
-    openNav(false);
-  } else {
-    navToggle?.setAttribute('aria-expanded', 'false');
-    navList.removeAttribute('aria-hidden');
-  }
-};
-
-const resetSimulator = () => {
-  state.active = false;
-  state.pilot = '';
-  state.round = 0;
-  state.score = 0;
-  state.results = [];
-  scenarioPanel.hidden = true;
-  pilotForm.hidden = true;
-  startButton.hidden = false;
-  pilotInput.value = '';
-  pilotError.textContent = '';
-  scenarioFeedback.textContent = '';
-  scenarioLog.innerHTML = '';
-  simulatorSummary.hidden = true;
-  simulatorSummaryText.textContent = '';
-  scenarioForm?.reset();
-  ['car', 'aero', 'tire', 'ers'].forEach(highlightSelection);
-};
-
-const startSimulator = () => {
-  state.active = true;
-  startButton.hidden = true;
-  pilotForm.hidden = false;
-  pilotInput.focus();
-};
-
-const applyScenarioDefaults = (scenario) => {
-  if (!scenario || !scenario.defaults) return;
-  Object.entries(scenario.defaults).forEach(([group, value]) => {
-    setRadioValue(group, value);
+  const cancelExperienceButtons = document.querySelectorAll('[data-action="cancel-experience"]');
+  cancelExperienceButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      cancelExperience(elements, 'Maybe next time! When you are ready, we\'ll be here with the keys.');
+    });
   });
-};
 
-const renderScenario = () => {
-  const scenario = scenarios[state.round];
-  if (!scenario) return;
+  const budgetYesButton = document.querySelector('[data-action="budget-yes"]');
+  const budgetNoButton = document.querySelector('[data-action="budget-no"]');
+  const cancelGameButton = document.querySelector('[data-action="cancel-game"]');
 
-  scenarioPanel.hidden = false;
-  scenarioRound.textContent = `Scenario ${state.round + 1} of ${scenarios.length}`;
-  scenarioTitle.textContent = scenario.title;
-  scenarioTarget.textContent = formatSpeed(scenario.targetSpeed);
-  scenarioRunway.textContent = scenario.runway;
-  scenarioConditions.textContent = scenario.conditions;
-  scenarioFeedback.textContent = '';
+  elements.startButton.addEventListener('click', () => {
+    startExperience(elements);
+  });
 
-  scenarioForm?.reset();
-  ['car', 'aero', 'tire', 'ers'].forEach(highlightSelection);
-  applyScenarioDefaults(scenario);
-};
+  elements.nameForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    handleNameSubmission(elements);
+  });
 
-const evaluatePlan = (scenario, plan) => {
-  const car = carsMap.get(plan.car);
-  const aero = aeroMap.get(plan.aero);
-  const tires = tireMap.get(plan.tire);
-  const ers = ersMap.get(plan.ers);
+  if (budgetYesButton) {
+    budgetYesButton.addEventListener('click', () => {
+      state.hasFunds = true;
+      elements.cashMessage.textContent = `Good to see you again, ${state.name || 'friend'}! Let\'s find your perfect megacar.`;
+      beginChallenge(elements);
+    });
+  }
 
-  if (!car || !aero || !tires || !ers) {
+  if (budgetNoButton) {
+    budgetNoButton.addEventListener('click', () => {
+      state.hasFunds = false;
+      elements.cashMessage.innerHTML =
+        'Dreams start somewhere. Check out <a href="https://www.lingscars.com/links" target="_blank" rel="noopener">Ling\'s Cars</a> for more budget-friendly options.';
+      beginChallenge(elements);
+    });
+  }
+
+  elements.challengeForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    handleChallengeSubmission(elements);
+  });
+
+  if (cancelGameButton) {
+    cancelGameButton.addEventListener('click', () => {
+      cancelChallenge(elements);
+    });
+  }
+});
+
+function getElements() {
+  const elements = {
+    startButton: document.querySelector(selectors.startButton),
+    welcomeMessage: document.querySelector(selectors.welcomeMessage),
+    cashMessage: document.querySelector(selectors.cashMessage),
+    workflow: document.querySelector(selectors.workflow),
+    nameForm: document.querySelector(selectors.nameForm),
+    nameInput: document.querySelector(selectors.nameInput),
+    nameError: document.querySelector(selectors.nameError),
+    budgetStep: document.querySelector(selectors.budgetStep),
+    resultsList: document.querySelector(selectors.resultsList),
+    rewardFigure: document.querySelector(selectors.rewardFigure),
+    rewardImage: document.querySelector(selectors.rewardImage),
+    rewardCaption: document.querySelector(selectors.rewardCaption),
+    challengeForm: document.querySelector(selectors.challengeForm),
+    challengeInput: document.querySelector(selectors.challengeInput),
+    challengeStatus: document.querySelector(selectors.challengeStatus),
+    challengeError: document.querySelector(selectors.challengeError),
+  };
+
+  const allElementsPresent = Object.values(elements).every((value) => Boolean(value));
+
+  if (!allElementsPresent) {
     return null;
   }
 
-  let speed = car.topSpeed + (car.speedBias || 0);
-  let stabilityScore = car.stability;
-  let reliabilityScore = car.reliability;
-  let thermalLoad = car.thermalBase;
+  return elements;
+}
 
-  const integrate = (component) => {
-    speed += component.speedGain || 0;
-    stabilityScore += component.stability || 0;
-    reliabilityScore += component.reliability || 0;
-    thermalLoad += component.heat || 0;
-  };
+function startExperience(elements) {
+  resetState();
+  resetChallengeDisplay(elements);
+  elements.workflow.hidden = false;
+  elements.nameForm.hidden = false;
+  elements.budgetStep.hidden = true;
+  elements.nameInput.value = '';
+  elements.nameError.textContent = '';
+  elements.cashMessage.textContent = '';
+  elements.welcomeMessage.textContent = "Let's get you in the driver's seat.";
+  elements.startButton.textContent = 'Start the Hyper-Carz challenge';
+  setStartButtonVisible(elements.startButton, false);
+  window.setTimeout(() => {
+    elements.nameInput.focus();
+  }, 0);
+}
 
-  integrate(aero);
-  integrate(tires);
-  integrate(ers);
+function handleNameSubmission(elements) {
+  const name = elements.nameInput.value.trim();
 
-  speed -= scenario.dragPenalty;
-  speed += scenario.airDensityBenefit;
-  stabilityScore += scenario.stabilityBonus;
-  reliabilityScore += scenario.reliabilityBonus;
-
-  const totalThermal = thermalLoad + scenario.surfaceTemp;
-  let thermalOverload = false;
-  if (totalThermal > scenario.thermalLimit) {
-    thermalOverload = true;
-    const thermalPenalty = Math.round((totalThermal - scenario.thermalLimit) * 0.6);
-    speed -= thermalPenalty;
-  }
-
-  const stabilityMargin = stabilityScore - scenario.stabilityDemand;
-  if (stabilityMargin < 0) {
-    speed += Math.round(stabilityMargin * 0.9);
-  }
-
-  const reliabilityMargin = reliabilityScore - scenario.reliabilityDemand;
-  const reliabilityIndex = (reliabilityScore + stabilityScore) / 2;
-  const failureProbability = Math.max(5, Math.round(scenario.failureThreshold - reliabilityIndex));
-  const reliabilityRoll = Math.random() * 100;
-  const reliabilityFailure = reliabilityRoll < failureProbability;
-
-  const variation = Math.round((Math.random() - 0.5) * scenario.variability);
-  speed += variation;
-
-  const effectiveSpeed = Math.round(speed);
-  const success = !reliabilityFailure && effectiveSpeed >= scenario.targetSpeed;
-
-  let reason = 'pace';
-  let feedback;
-
-  if (reliabilityFailure) {
-    reason = 'reliability';
-    feedback = 'Telemetry flagged a driveline fault and the run was aborted.';
-  } else if (thermalOverload && effectiveSpeed < scenario.targetSpeed) {
-    reason = 'thermal';
-    feedback = 'Thermal management forced a lift before trap speed verification. Dial back hybrid aggression.';
-  } else if (stabilityMargin < 0 && effectiveSpeed < scenario.targetSpeed) {
-    reason = 'stability';
-    feedback = 'Crosswind correction exceeded available aero authority. Consider more downforce.';
-  } else if (success) {
-    reason = 'success';
-    feedback = `${car.name} confirmed the attempt at ${formatSpeed(effectiveSpeed)}. Data logged for homologation.`;
-  } else {
-    feedback = `${car.name} peaked at ${formatSpeed(effectiveSpeed)} — short of the verification threshold.`;
-  }
-
-  const telemetry = {
-    effectiveSpeed,
-    stabilityMargin: Math.round(stabilityMargin),
-    reliabilityMargin: Math.round(reliabilityMargin),
-    thermal: Math.round(totalThermal),
-    failureProbability,
-  };
-
-  return { success, reason, feedback, telemetry, plan: { car, aero, tires, ers } };
-};
-
-const buildLogEntry = (scenario, outcome) => {
-  const li = document.createElement('li');
-  li.className = 'log-entry';
-
-  const headline = document.createElement('div');
-  headline.className = 'log-entry__headline';
-
-  const title = document.createElement('strong');
-  title.textContent = scenario.title;
-
-  const status = document.createElement('span');
-  status.className = 'log-entry__status';
-  status.textContent = outcome.success ? 'Verified' : 'Abort';
-
-  headline.append(title, status);
-
-  const summary = document.createElement('p');
-  summary.className = 'log-entry__summary';
-  summary.textContent = `${state.pilot} deployed the ${outcome.plan.car.name} with ${outcome.plan.aero.title.toLowerCase()} aero, ${outcome.plan.tires.title.toLowerCase()} tires, and ${outcome.plan.ers.title.toLowerCase()}.`;
-
-  const telemetry = document.createElement('p');
-  telemetry.className = 'log-entry__details';
-  const stabilityValue = outcome.telemetry.stabilityMargin >= 0 ? `+${outcome.telemetry.stabilityMargin}` : outcome.telemetry.stabilityMargin;
-  const reliabilityValue = outcome.telemetry.reliabilityMargin >= 0 ? `+${outcome.telemetry.reliabilityMargin}` : outcome.telemetry.reliabilityMargin;
-  telemetry.innerHTML = `Telemetry: <strong>${formatSpeed(outcome.telemetry.effectiveSpeed)}</strong> &bull; Stability margin ${stabilityValue} &bull; Reliability margin ${reliabilityValue} &bull; Thermal ${outcome.telemetry.thermal}&deg;C &bull; Failure window ${outcome.telemetry.failureProbability}%`;
-
-  const detail = document.createElement('p');
-  detail.className = 'log-entry__details';
-  if (outcome.success) {
-    detail.textContent = 'Certification approved. Factory data team recorded a clean trace for the archives.';
-  } else if (outcome.reason === 'reliability') {
-    detail.textContent = 'Power unit protection intervened. Inspect the driveline before the next sortie.';
-  } else if (outcome.reason === 'thermal') {
-    detail.textContent = 'Thermal spike triggered torque limiting. Deploy a calmer ERS map or endurance tires.';
-  } else if (outcome.reason === 'stability') {
-    detail.textContent = 'Stability deficit detected. Increase downforce or select a chassis with broader aero authority.';
-  } else {
-    detail.textContent = 'Speed delta remained below target. Revisit aero trim and deployment strategy.';
-  }
-
-  li.append(headline, summary, telemetry, detail);
-  return li;
-};
-
-const resolveScenario = (scenario, plan) => {
-  const outcome = evaluatePlan(scenario, plan);
-  if (!outcome) {
-    scenarioFeedback.textContent = 'Unable to compute strategy outcome. Refresh and try again.';
+  if (name.length === 0) {
+    elements.nameError.textContent = 'Please let us know your name to continue.';
+    elements.nameInput.focus();
     return;
   }
 
-  scenarioFeedback.textContent = outcome.feedback;
-  state.results.push({
-    scenarioId: scenario.id,
-    success: outcome.success,
-    telemetry: outcome.telemetry,
-    reason: outcome.reason,
-  });
+  state.name = name;
+  elements.nameError.textContent = '';
+  elements.welcomeMessage.textContent = `Welcome, ${state.name}!`;
+  showBudgetStep(elements);
+}
 
-  if (outcome.success) {
-    state.score += 1;
+function showBudgetStep(elements) {
+  elements.nameForm.hidden = true;
+  elements.budgetStep.hidden = false;
+  const firstChoiceButton = elements.budgetStep.querySelector('button');
+  if (firstChoiceButton) {
+    firstChoiceButton.focus();
   }
+}
 
-  const entry = buildLogEntry(scenario, outcome);
-  scenarioLog.prepend(entry);
-};
+function beginChallenge(elements) {
+  state.challengeActive = true;
+  state.attempts = 0;
+  elements.workflow.hidden = true;
+  elements.challengeForm.hidden = false;
+  elements.challengeInput.value = '';
+  elements.challengeError.textContent = '';
+  updateChallengeStatus(elements);
+  window.setTimeout(() => {
+    elements.challengeInput.focus();
+  }, 0);
+}
 
-const completeSimulation = () => {
-  scenarioPanel.hidden = true;
-  const successRate = Math.round((state.score / scenarios.length) * 100);
-  let summary = `${state.pilot}, ${state.score} of ${scenarios.length} sorties verified (${successRate}% success). `;
-
-  if (state.score === scenarios.length) {
-    summary += 'Flawless execution — Koenigsegg HQ approves your calibration package for customer delivery.';
-  } else if (state.score === 0) {
-    summary += 'Control recommends additional simulator time before the next proving session.';
-  } else {
-    summary += 'Solid instincts. Review the mission log to sharpen aero and thermal calls for the next attempt.';
-  }
-
-  const bestRun = state.results
-    .filter((result) => result.telemetry)
-    .reduce((top, current) => {
-      if (!top || current.telemetry.effectiveSpeed > top.telemetry.effectiveSpeed) {
-        return current;
-      }
-      return top;
-    }, null);
-
-  if (bestRun) {
-    const scenarioName = scenarioMap.get(bestRun.scenarioId)?.title ?? 'latest mission';
-    summary += ` Highest trap speed: ${formatSpeed(bestRun.telemetry.effectiveSpeed)} during the ${scenarioName}.`;
-  }
-
-  simulatorSummaryText.textContent = summary;
-  simulatorSummary.hidden = false;
-};
-
-const handleScenarioSubmit = (event) => {
-  event.preventDefault();
-  const formData = new FormData(scenarioForm);
-  const plan = {
-    car: formData.get('car'),
-    aero: formData.get('aero'),
-    tire: formData.get('tire'),
-    ers: formData.get('ers'),
-  };
-
-  if (!plan.car || !plan.aero || !plan.tire || !plan.ers) {
-    scenarioFeedback.textContent = 'Select a chassis, aero trim, tire compound, and hybrid deployment to proceed.';
+function handleChallengeSubmission(elements) {
+  if (!state.challengeActive) {
     return;
   }
 
-  const scenario = scenarios[state.round];
-  if (!scenario) {
-    scenarioFeedback.textContent = 'Scenario data unavailable. Refresh and try again.';
+  const value = elements.challengeInput.value.trim();
+  const speed = Number.parseInt(value, 10);
+
+  if (!Number.isFinite(speed) || speed <= 0 || speed > 320) {
+    elements.challengeError.textContent = 'Enter a Koenigsegg-worthy top speed between 1 and 320 mph.';
+    elements.challengeInput.focus();
     return;
   }
 
-  resolveScenario(scenario, plan);
+  elements.challengeError.textContent = '';
+  state.attempts += 1;
+  appendResult(elements.resultsList, `Attempt ${state.attempts}: ${speed} mph`);
 
-  state.round += 1;
-  if (state.round < scenarios.length) {
-    renderScenario();
-  } else {
-    completeSimulation();
-  }
-};
+  const matchingCar = cars.find((car) => car.topSpeed === speed);
 
-const handlePilotSubmit = (event) => {
-  event.preventDefault();
-  const value = pilotInput.value.trim();
-  if (value.length < 2) {
-    pilotError.textContent = 'Enter a call sign with at least two characters.';
-    pilotInput.focus();
+  if (matchingCar) {
+    showReward(elements, matchingCar);
+    const victoryMessage = state.hasFunds
+      ? `Congratulations, ${state.name}! Your Koenigsegg awaits.`
+      : `Well played, ${state.name}! Saving up for a Koenigsegg starts with knowledge.`;
+    appendResult(elements.resultsList, victoryMessage);
+    finishChallenge(elements);
     return;
   }
-  pilotError.textContent = '';
-  state.pilot = value;
-  pilotForm.hidden = true;
-  renderScenario();
-};
 
-const initFooterYear = () => {
-  if (footerYear) {
-    footerYear.textContent = new Date().getFullYear();
-  }
-};
-
-const init = () => {
-  populateOptions();
-  initFooterYear();
-  handleNavBreakpoint();
-  if (mobileQuery.addEventListener) {
-    mobileQuery.addEventListener('change', handleNavBreakpoint);
-  } else {
-    mobileQuery.addListener(handleNavBreakpoint);
+  if (state.attempts >= MAX_ATTEMPTS) {
+    appendResult(
+      elements.resultsList,
+      `Close call, ${state.name}! None of those guesses matched a Koenigsegg record. Review the hints and try again when you are ready.`,
+    );
+    finishChallenge(elements);
+    return;
   }
 
-  navToggle?.addEventListener('click', toggleNav);
-  startButton?.addEventListener('click', startSimulator);
-  pilotForm?.addEventListener('submit', handlePilotSubmit);
-  scenarioForm?.addEventListener('submit', handleScenarioSubmit);
-  scenarioForm?.addEventListener('change', (event) => {
-    if (event.target instanceof HTMLInputElement && event.target.type === 'radio') {
-      highlightSelection(event.target.name);
-    }
-  });
-  cancelButtons.forEach((button) => button.addEventListener('click', resetSimulator));
-  restartButton?.addEventListener('click', () => {
-    resetSimulator();
-    startSimulator();
-  });
+  updateChallengeStatus(elements);
+  elements.challengeInput.value = '';
+  elements.challengeInput.focus();
+}
 
-  document.addEventListener('click', (event) => {
-    if (!navToggle || !mobileQuery.matches) return;
-    if (event.target === navToggle || navToggle.contains(event.target)) {
-      return;
-    }
-    if (navList && navList.contains(event.target)) {
-      openNav(false);
-      return;
-    }
-    if (navList && navList.getAttribute('aria-hidden') === 'false') {
-      openNav(false);
-    }
-  });
-};
+function cancelChallenge(elements) {
+  if (!state.challengeActive) {
+    cancelExperience(elements, 'No worries—we\'ll save your spot in the Hyper-Carz garage.');
+    return;
+  }
 
-document.addEventListener('DOMContentLoaded', init);
+  const attemptsWord = state.attempts === 1 ? 'attempt' : 'attempts';
+  appendResult(elements.resultsList, `Game cancelled after ${state.attempts} ${attemptsWord}.`);
+  finishChallenge(elements);
+}
+
+function finishChallenge(elements) {
+  state.challengeActive = false;
+  elements.challengeForm.hidden = true;
+  elements.challengeInput.value = '';
+  elements.challengeStatus.textContent = '';
+  elements.challengeError.textContent = '';
+  setStartButtonVisible(elements.startButton, true);
+  elements.startButton.textContent = 'Play the Hyper-Carz challenge again';
+  elements.startButton.focus();
+}
+
+function cancelExperience(elements, message) {
+  resetState();
+  elements.workflow.hidden = true;
+  elements.challengeForm.hidden = true;
+  elements.challengeStatus.textContent = '';
+  elements.challengeError.textContent = '';
+  resetChallengeDisplay(elements);
+  setStartButtonVisible(elements.startButton, true);
+  elements.startButton.textContent = 'Start the Hyper-Carz challenge';
+  elements.welcomeMessage.textContent = message;
+  elements.cashMessage.textContent = '';
+}
+
+function resetState() {
+  state.name = '';
+  state.hasFunds = false;
+  state.attempts = 0;
+  state.challengeActive = false;
+}
+
+function resetChallengeDisplay(elements) {
+  elements.resultsList.innerHTML = '';
+  elements.rewardFigure.hidden = true;
+  elements.rewardImage.removeAttribute('src');
+  elements.rewardImage.removeAttribute('alt');
+  elements.rewardCaption.textContent = '';
+}
+
+function showReward(elements, car) {
+  elements.rewardImage.src = car.image;
+  elements.rewardImage.alt = `${car.name} on display`;
+  elements.rewardCaption.textContent = `${car.topSpeed} mph is the correct top speed of the Koenigsegg ${car.name}! ${car.description}`;
+  elements.rewardFigure.hidden = false;
+}
+
+function updateChallengeStatus(elements) {
+  const nextAttempt = state.attempts + 1;
+  elements.challengeStatus.textContent = `Attempt ${nextAttempt} of ${MAX_ATTEMPTS} — choose from these target speeds: ${HINT_MESSAGE} mph.`;
+}
+
+function appendResult(listElement, text) {
+  const item = document.createElement('li');
+  item.textContent = text;
+  listElement.appendChild(item);
+}
+
+function setStartButtonVisible(button, isVisible) {
+  button.hidden = !isVisible;
+}
